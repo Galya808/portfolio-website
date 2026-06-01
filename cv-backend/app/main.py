@@ -6,6 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI() # creates application
 
+origins = [
+    "https://gala-portfolio-website.vercel.app/#about"
+]
+
 Base.metadata.create_all(bind=engine) # creates all tables that do not exist yet
 
 app.include_router(projects.router)
@@ -17,7 +21,7 @@ app.include_router(auth.router)
 # connects to the frontend server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
