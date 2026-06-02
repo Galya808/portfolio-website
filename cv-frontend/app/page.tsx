@@ -47,7 +47,7 @@ export default function Home() {
   const [education, setEducation] = useState<Education[]>([])
 
   useEffect(() => {
-    api.get("/project/")
+    api.get("/projects/")
       .then(res => setProjects(res.data))
       .catch(err => console.log(err))
 
