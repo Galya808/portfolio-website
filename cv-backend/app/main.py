@@ -7,16 +7,17 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(docs_url="/docs", redoc_url="/redoc") # creates application
 
 origins = [
-    "https://gala-portfolio-website.vercel.app/#about"
+    "https://galymzhan.xyz",
+    "https://www.galymzhan.xyz"
 ]
 
 Base.metadata.create_all(bind=engine) # creates all tables that do not exist yet
 
-app.include_router(projects.router)
-app.include_router(education.router)
-app.include_router(experience.router)
-app.include_router(skills.router)
-app.include_router(auth.router)
+app.include_router(projects.router, prefix='/api')
+app.include_router(education.router, prefix='/api')
+app.include_router(experience.router, prefix='/api')
+app.include_router(skills.router, prefix='/api')
+app.include_router(auth.router, prefix='/api')
 
 # connects to the frontend server
 app.add_middleware(
