@@ -45,6 +45,7 @@ export default function Home() {
   const [skills, setSkills] = useState<Skill[]>([])
   const [experiences, setExperiences] = useState<Experience[]>([])
   const [education, setEducation] = useState<Education[]>([])
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     api.get("/projects/")
@@ -72,9 +73,13 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between">
           <h1 className="font-bold text-lg">GA</h1>
 
-          <button className="md:hidden text-sm">
+          <button 
+            className="md:hidden text-sm"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             Menu
           </button>
+
 
           <div className="hidden md:flex gap-6 text-sm text-zinc-400">
             <a href="#about" className="hover:text-white transition">About</a>
@@ -85,11 +90,20 @@ export default function Home() {
             <a href="#contact" className="hover:text-white transition">Contact</a>
           </div>
         </div>
+
+        {menuOpen && (
+          <div className="md:hidden flex flex-col px-6 pb-4 gap-4 text-zinc-400 bg-black">
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+        )}
       </nav>
 
       {/* HERO */}
       <section className="min-h-screen flex items-center">
-        <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[300px] md:w-[500px] h-[500px] bg-purple-500/20 blur-[120px] rounded-full overflow-hidden"></div>
+        <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[300px] md:w-[500px] h-[500px] bg-purple-500/20 blur-[120px] rounded-full overflow-hidden pointer-events-none"></div>
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -265,7 +279,7 @@ export default function Home() {
       {/* PROJECTS */}
       <section
         id="projects"
-        className="max-w-6xl mx-auto px-6 py-24 md:py-32 scroll-mt-6"
+        className="max-w-6xl mx-auto px-6 py-24 md:py-32 scroll-mt-24"
       >
         <h2 className="text-3xl font-bold mb-12">
           Projects
