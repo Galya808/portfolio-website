@@ -345,9 +345,9 @@ export default function Home() {
         </h2>
 
         <div className="flex flex-col gap-4 text-zinc-400 break-words">
-          <p>Email: your@email.com</p>
-          <p>GitHub: github.com/yourname</p>
-          <p>LinkedIn: linkedin.com/in/yourname</p>
+          <p>Email: gaayapbergen@gmail.com</p>
+          <p>GitHub: github.com/Galya808</p>
+          {/* <p>LinkedIn: linkedin.com/in/yourname</p> */}
         </div>
       </section>
 

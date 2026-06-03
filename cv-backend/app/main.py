@@ -4,7 +4,7 @@ from app import models
 from app.routers import projects, education, experience, skills, auth
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI() # creates application
+app = FastAPI(docs_url="/docs", redoc_url="/redoc") # creates application
 
 origins = [
     "https://gala-portfolio-website.vercel.app/#about"
