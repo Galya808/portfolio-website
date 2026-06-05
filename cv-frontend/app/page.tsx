@@ -160,7 +160,7 @@ export default function Home() {
           Skills
         </h2>
 
-        <div className="flex flex wrap gap-4">
+        <div className="flex flex-wrap gap-4">
           {skills.map(skill => (
             <div 
               key={skill.id} 
