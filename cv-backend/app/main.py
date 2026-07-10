@@ -7,8 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(docs_url=None, redoc_url=None) # creates application
 
 origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
     "https://galymzhan.xyz",
-    "https://www.galymzhan.xyz"
+    "https://www.galymzhan.xyz",
 ]
 
 Base.metadata.create_all(bind=engine) # creates all tables that do not exist yet

@@ -3,28 +3,6 @@ from app import models, schemas
 
 # This is the part where the API actually talks to the database
 
-def create_project(db: Session, project: schemas.ProjectCreate):
-    db_project = models.Project(**project.dict())
-    db.add(db_project)
-    db.commit()
-    db.refresh(db_project)
-    return db_project
-
-def get_projects(db: Session):
-    return db.query(models.Project).all()
-
-def delete_project(db: Session, project_id: int):
-    project = db.query(models.Project).filter(
-        models.Project.id == project_id
-    ).first()
-
-    if project:
-        db.delete(project)
-        db.commit()
-
-    return {"message": "Project deleted"}
-
-
 
 def create_skill(db: Session, skill: schemas.SkillCreate):
     db_skill = models.Skill(**skill.dict())

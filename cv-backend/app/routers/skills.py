@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app import schemas, crud
+from app import schemas
 from app.dependencies import get_db, get_current_user
+from app.services import skill_service
 
 router = APIRouter(prefix="/skills", tags=["Skills"])
 
@@ -11,8 +12,8 @@ def create_skill(
     db: Session = Depends(get_db),
     user: str = Depends(get_current_user)
 ):
-    return crud.create_skill(db, skill)
+    return skill_service.create_skill(db, skill)
 
 @router.get("/")
 def get_skills(db: Session = Depends(get_db)):
-    return crud.get_skills(db)
+    return skill_service.get_skills(db)

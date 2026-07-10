@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app import schemas, crud
+from app import schemas
 from app.dependencies import get_db, get_current_user
+from app.services import project_service
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
+# accepts HTTP request
 
 @router.post("/")
 def create_project(
@@ -11,17 +13,8 @@ def create_project(
     db: Session = Depends(get_db),
     user: str = Depends(get_current_user)
 ):
-    return crud.create_project(db, project)
+    return project_service.create_project(db, project)
 
-
-@router.put("/{project_id}")
-def update_project(
-    project_id: int, 
-    project: schemas.ProjectCreate,
-    db:  Session = Depends(get_db),
-    user: str = Depends(get_current_user)
-):
-    return crud.update_project(db, project_id, project)
 
 @router.delete("/{project_id}")
 def delete_project(
@@ -29,9 +22,9 @@ def delete_project(
     db: Session = Depends(get_db),
     user: str = Depends(get_current_user)
 ):
-    return crud.delete_project(db, project_id)
+    return project_service.delete_project(db, project_id)
     
 
 @router.get("/")
 def get_projects(db: Session = Depends(get_db)):
-    return crud.get_projects(db)
+    return project_service.get_projects(db)
