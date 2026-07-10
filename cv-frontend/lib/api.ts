@@ -1,6 +1,7 @@
 import axios from "axios"
 
+// Здесь только базовая настройка axios, без авторизации и прочего. Все это будет в apiAuth.ts
+
 export const api = axios.create({
-    // baseURL: "http://127.0.0.1:8000"
     baseURL: "/api"
 })
