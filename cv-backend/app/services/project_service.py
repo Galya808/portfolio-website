@@ -1,24 +1,45 @@
-from fastapi import HTTPException
-from sqlalchemy.orm import Session
 from app import schemas
-from app.repositories import project_repository
+from app.repositories.project_repository import ProjectRepository
+from app.strategies.project_sort_strategy import (
+    SortProjectsByTitleAscending,
+    ProjectSortStrategy
+)
 
 
-def create_project(db: Session, project: schemas.ProjectCreate):
-    if not project.title.strip():
-        raise HTTPException(status_code=400, detail="Project title is required")
-
-    return project_repository.create_project(db, project)
+class ProjectNotFoundError(Exception):
+    pass
 
 
-def get_projects(db: Session):
-    return project_repository.get_projects(db)
+class ProjectValidationError(Exception):
+    pass
 
 
-def delete_project(db: Session, project_id: int):
-    deleted = project_repository.delete_project(db, project_id)
+class ProjectService:
+    def __init__(
+            self, 
+            repo: ProjectRepository,
+            sort_strategy: ProjectSortStrategy | None = None
+    ):
+        self.repo = repo
+        self.sort_strategy = (
+            sort_strategy or SortProjectsByTitleAscending()
+        )
 
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Project not found")
+    def create_project(self, project: schemas.ProjectCreate):
+        if not project.title.strip():
+            raise ProjectValidationError(
+                "Project title is required"
+            )
+        
+        return self.repo.create_project(project)
 
-    return {"message": "Project deleted"}
+    def get_projects(self):
+        projects = self.repo.get_projects()
+        
+        return self.sort_strategy.sort(projects)
+
+    def delete_project(self, project_id: int) -> None:
+        deleted = self.repo.delete_project(project_id)
+        
+        if not deleted:
+            raise ProjectNotFoundError(f"Project with id {project_id} not found")

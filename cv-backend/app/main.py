@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from app.database import engine, Base # SQLAlchemy database engine and declarative base
-from app import models 
 from app.routers import projects, education, experience, skills, auth
 from fastapi.middleware.cors import CORSMiddleware
 
