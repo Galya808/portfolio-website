@@ -117,3 +117,29 @@ def test_get_projects_with_descending_sort_strategy():
         "Blog",
         "alpha"
     ]
+
+
+def test_get_projects_when_repository_is_empty():
+    # Arrange
+    # Fake Dependency
+    repo = InMemoryProjectRepository()
+
+    # SUT
+    service = ProjectService(repo)
+
+    # Act
+    projects = service.get_projects()
+
+    # Assert
+    assert projects == []
+
+
+def test_new_repository_has_no_projects():
+    # Arrange
+    repo = InMemoryProjectRepository()
+
+    # Act
+    projects = repo.get_projects()
+
+    # Assert
+    assert projects == []
