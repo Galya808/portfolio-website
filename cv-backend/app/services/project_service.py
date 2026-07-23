@@ -29,12 +29,16 @@ class ProjectService:
         )
 
     def create_project(self, project: schemas.ProjectCreate):
-        if not project.title.strip():
+        normalized_title = project.title.strip()
+        if not normalized_title:
             raise ProjectValidationError(
                 "Project title is required"
             )
-        
-        created_project = self.repo.create_project(project)
+
+        normalized_project = project.model_copy(
+            update={"title": normalized_title}
+        )
+        created_project = self.repo.create_project(normalized_project)
 
         logger.info(
             "Project created project_id=%s",

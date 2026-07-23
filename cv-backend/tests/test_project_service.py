@@ -11,6 +11,22 @@ from app.services.project_service import (
 from app.strategies.project_sort_strategy import SortProjectsByTitleDescending
 
 
+def test_create_project_normalizes_title_whitespace():
+    # Arrange
+    repo = InMemoryProjectRepository()
+    service = ProjectService(repo)
+
+    project = schemas.ProjectCreate(
+        title="  Zoo  "
+    )
+
+    # Act
+    created_project = service.create_project(project)
+
+    # Assert
+    assert created_project["title"] == "Zoo"
+
+
 def test_create_project():
     # Arrange
     repo = InMemoryProjectRepository()
