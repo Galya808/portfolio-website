@@ -1,3 +1,4 @@
+import logging
 from app import schemas
 from app.repositories.project_repository import ProjectRepository
 from app.strategies.project_sort_strategy import (
@@ -5,6 +6,8 @@ from app.strategies.project_sort_strategy import (
     ProjectSortStrategy
 )
 
+
+logger = logging.getLogger(__name__)
 
 class ProjectNotFoundError(Exception):
     pass
@@ -31,15 +34,39 @@ class ProjectService:
                 "Project title is required"
             )
         
-        return self.repo.create_project(project)
+        created_project = self.repo.create_project(project)
+
+        logger.info(
+            "Project created project_id=%s",
+            created_project["id"],
+        )
+
+        return created_project
 
     def get_projects(self):
         projects = self.repo.get_projects()
+        sorted_projects = self.sort_strategy.sort(projects)
+
+        logger.info(
+            "Projects listed count=%s",
+            len(sorted_projects),
+        )
         
-        return self.sort_strategy.sort(projects)
+        return sorted_projects
 
     def delete_project(self, project_id: int) -> None:
         deleted = self.repo.delete_project(project_id)
         
         if not deleted:
-            raise ProjectNotFoundError(f"Project with id {project_id} not found")
+            logger.warning(
+                "Project deletion failed: project not found project_id=%s",
+                project_id
+            )
+            raise ProjectNotFoundError(
+                f"Project with id {project_id} not found"
+            )
+
+        logger.info(
+            "Project deleted project_id=%s",
+            project_id
+        )

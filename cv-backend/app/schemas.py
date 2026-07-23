@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime, date
 
 
@@ -17,8 +17,7 @@ class ProjectResponse(ProjectBase):
     id: int
     created_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SkillBase(BaseModel):
@@ -32,8 +31,7 @@ class SkillCreate(SkillBase):
 class SkillResponse(SkillBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ExperienceBase(BaseModel):
@@ -50,8 +48,7 @@ class ExperienceCreate(ExperienceBase):
 class ExperienceResponse(ExperienceBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class EducationBase(BaseModel):
@@ -67,8 +64,7 @@ class EducationCreate(EducationBase):
 class EducationResponse(EducationBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserCreate(BaseModel):
@@ -81,5 +77,4 @@ class UserResponse(BaseModel):
     username: str
     email: str
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

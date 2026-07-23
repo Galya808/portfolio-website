@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app import schemas
 from app.dependencies import (
@@ -14,7 +14,7 @@ router = APIRouter(prefix="/projects", tags=["Projects"])
 # accepts HTTP request
 
 
-@router.post("/")
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def create_project(
     project: schemas.ProjectCreate, 
     service: ProjectService = Depends(get_project_service),

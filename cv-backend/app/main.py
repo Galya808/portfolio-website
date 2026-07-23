@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from app.database import engine, Base # SQLAlchemy database engine and declarative base
 from app.routers import projects, education, experience, skills, auth
 from fastapi.middleware.cors import CORSMiddleware
+from logging.config import dictConfig
+
 
 app = FastAPI(docs_url=None, redoc_url=None) # creates application
 
@@ -27,6 +29,32 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+dictConfig(
+    {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "application": {
+                "format": (
+                    "%(asctime)s %(levelname)s "
+                    "%(name)s %(message)s"
+                ),
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "application",
+                "stream": "ext://sys.stdout",
+            },
+        },
+        "root": {
+            "level": "INFO",
+            "handlers": ["console"],
+        },
+    }
 )
 
 @app.get("/") # registers a simple GET request

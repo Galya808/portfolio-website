@@ -30,6 +30,7 @@ def test_create_project():
     assert created_project["description"] == "My portfolio website"
     assert 1 in repo.projects
 
+
 def test_get_projects():
     # Arrange
     repo = InMemoryProjectRepository()
@@ -54,13 +55,21 @@ def test_get_projects():
     assert projects[0]["title"] == "Newspaper"
     assert projects[1]["title"] == "Portfolio"
 
-def test_cannot_create_project_without_title():
+
+@pytest.mark.parametrize("invalid_title", [
+    "",
+    " ",
+    "  ",
+    "\t",
+    "\n",
+])
+def test_cannot_create_project_without_title(invalid_title):
     # Arrange
     repo = InMemoryProjectRepository()
     service = ProjectService(repo)
 
     project = schemas.ProjectCreate(
-        title="     ",
+        title=invalid_title,
     )
 
     # Act + Assert

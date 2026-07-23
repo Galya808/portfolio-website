@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean, Date
-from datetime import datetime
+from datetime import datetime, UTC
 from app.database import Base
 
 class Project(Base):
@@ -12,7 +12,7 @@ class Project(Base):
     live_url = Column(String, nullable=True)
     technologies = Column(String, nullable=True)
     image_url = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC))
 
 class User(Base):
     __tablename__ = "users"
@@ -22,7 +22,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC))
 
 class Skill(Base):
     __tablename__ = "skills"
