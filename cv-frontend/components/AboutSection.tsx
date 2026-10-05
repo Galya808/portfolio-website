@@ -3,12 +3,17 @@ export function AboutSection() {
     <section id="about" className="max-w-6xl mx-auto px-6 py-24 md:py-32">
       <h2 className="text-3xl font-bold mb-8">About Me</h2>
 
-      <p className="text-zinc-400 max-w-3xl leading-relaxed text-lg">
-        Computer Science student interested in backend engineering,
-        cloud technologies and modern web development.
-        Currently building fullstack applications using FastAPI,
-        PostgreSQL, Docker and Next.js.
-      </p>
+      <div className="max-w-3xl space-y-5 text-zinc-400 leading-relaxed text-lg">
+        <p>
+          I am a Computer Science student at Nazarbayev University focused on
+          backend engineering, distributed application design, and cloud deployment.
+        </p>
+        <p>
+          I build production-oriented applications with FastAPI and PostgreSQL,
+          then take them through testing, CI/CD, observability, and deployment.
+          I am currently open to backend and full-stack internship opportunities.
+        </p>
+      </div>
     </section>
   )
 }

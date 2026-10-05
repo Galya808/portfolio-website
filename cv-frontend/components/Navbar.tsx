@@ -13,6 +13,9 @@ export function Navbar() {
         <button
           className="md:hidden text-sm"
           onClick={() => setMenuOpen((isOpen) => !isOpen)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          aria-label="Toggle navigation menu"
         >
           Menu
         </button>
@@ -28,11 +31,13 @@ export function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden flex flex-col px-6 pb-4 gap-4 text-zinc-400 bg-black">
-          <a href="#skills">Skills</a>
-          <a href="#education">Education</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+        <div id="mobile-navigation" className="md:hidden flex flex-col px-6 pb-4 gap-4 text-zinc-400 bg-black">
+          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
+          <a href="#experiences" onClick={() => setMenuOpen(false)}>Experience</a>
+          <a href="#education" onClick={() => setMenuOpen(false)}>Education</a>
+          <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </div>
       )}
     </nav>

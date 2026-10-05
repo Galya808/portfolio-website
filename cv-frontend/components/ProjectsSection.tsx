@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import type { Project } from "@/types/cv"
 
 type ProjectsSectionProps = {
@@ -20,10 +21,23 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             key={project.id}
-            className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-zinc-700 transition"
+            className={`bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-purple-500/50 transition ${project.title === "Helpdesk Platform" ? "md:col-span-2" : ""}`}
           >
-            <div className="h-48 bg-zinc-800 flex items-center justify-center text-zinc-500">
-              Project Image
+            <div className={`relative bg-zinc-800 ${project.title === "Helpdesk Platform" ? "h-64 md:h-96" : "h-56"}`}>
+              {project.image_url ? (
+                <Image
+                  src={project.image_url}
+                  alt={`${project.title} preview`}
+                  fill
+                  unoptimized
+                  sizes={project.title === "Helpdesk Platform" ? "(min-width: 768px) 1152px, 100vw" : "(min-width: 768px) 576px, 100vw"}
+                  className="object-cover object-top"
+                />
+              ) : (
+                <div className="h-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-purple-950/50 text-zinc-400">
+                  {project.title}
+                </div>
+              )}
             </div>
 
             <div className="p-8">
@@ -34,7 +48,16 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               )}
 
               {project.technologies && (
-                <p className="text-sm text-zinc-500 mb-6">{project.technologies}</p>
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {project.technologies.split(",").map((technology) => (
+                    <span
+                      key={technology.trim()}
+                      className="rounded-full border border-zinc-700 px-3 py-1 text-xs text-zinc-300"
+                    >
+                      {technology.trim()}
+                    </span>
+                  ))}
+                </div>
               )}
 
               <div className="flex gap-4">
@@ -45,7 +68,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                     rel="noreferrer"
                     className="bg-white text-black px-4 py-2 rounded-xl text-sm"
                   >
-                    Github
+                    GitHub
                   </a>
                 )}
 

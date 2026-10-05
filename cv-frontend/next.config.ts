@@ -5,6 +5,14 @@ import type { NextConfig } from "next";
 const appDirectory = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+      },
+    ],
+  },
   turbopack: {
     root: appDirectory,
   },

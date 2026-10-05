@@ -22,6 +22,11 @@ from app.auth import (
 from app.repositories.user_repository import (
     get_user_by_username,
 )
+from app.routers.auth import router
+
+
+def test_public_registration_route_is_disabled():
+    assert all(route.path != "/auth/register" for route in router.routes)
 
 
 def test_hashed_password_is_not_equal_to_real_password():
