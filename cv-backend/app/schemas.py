@@ -28,6 +28,12 @@ class SkillBase(BaseModel):
 class SkillCreate(SkillBase):
     pass
 
+
+class SkillUpdate(BaseModel):
+    name: str | None = None
+    category: str | None = None
+    proficiency_level: int | None = None
+
 class SkillResponse(SkillBase):
     id: int
 
