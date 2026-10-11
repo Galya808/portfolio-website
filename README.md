@@ -24,7 +24,6 @@ backend are managed as separate systemd services.
 - Skills grouped by backend, frontend, database, testing, security, DevOps,
   cloud, and observability categories.
 - Education, experience, About, and Contact sections backed by API data.
-- Downloadable résumé served directly by the production website.
 - SEO metadata, Open Graph previews, `robots.txt`, and `sitemap.xml`.
 - JWT-protected content-management endpoints.
 - Repository, service, and strategy layers for backend business logic.
@@ -186,7 +185,7 @@ cd ../cv-frontend && npm ci && npm run build
 sudo systemctl restart backend.service frontend.service
 ```
 
-Production secrets and the résumé PDF are intentionally excluded from Git.
+Production secrets are intentionally excluded from Git.
 
 ## Security Notes
 
@@ -195,8 +194,6 @@ Production secrets and the résumé PDF are intentionally excluded from Git.
 - Administrative write operations require a signed JWT.
 - Public user registration is disabled.
 - CORS is restricted to local development and the production domain.
-- The production résumé is deployed directly rather than stored in the public
-  repository.
 
 ## Project Status
 

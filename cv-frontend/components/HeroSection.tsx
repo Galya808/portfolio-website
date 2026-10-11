@@ -34,13 +34,6 @@ export function HeroSection() {
             View projects
           </a>
           <a
-            href="/Galymzhan_Ayapbergen_CV_2026.pdf"
-            download
-            className="border border-zinc-700 px-6 py-3 rounded-xl font-medium hover:border-zinc-500 hover:bg-zinc-900 transition"
-          >
-            Download résumé
-          </a>
-          <a
             href="https://github.com/Galya808"
             target="_blank"
             rel="noreferrer"

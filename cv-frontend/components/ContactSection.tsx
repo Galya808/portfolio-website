@@ -15,9 +15,6 @@ export function ContactSection() {
         <a className="rounded-xl border border-zinc-700 px-5 py-3 hover:border-zinc-500" href="https://github.com/Galya808" target="_blank" rel="noreferrer">
           GitHub
         </a>
-        <a className="rounded-xl border border-zinc-700 px-5 py-3 hover:border-zinc-500" href="/Galymzhan_Ayapbergen_CV_2026.pdf" download>
-          Résumé
-        </a>
       </div>
     </section>
   )
